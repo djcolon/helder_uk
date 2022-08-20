@@ -1,3 +1,32 @@
-baseURL: http://example.org/
+baseURL: https://dcol.eu/
 languageCode: en-us
-title: My New Hugo Site
+title: DCol
+theme: "PaperMod"
+
+params:
+  profileMode:
+    enabled: true
+    title: "Daniel Colon" # optional default will be site title
+    subtitle: "Developer, Tinkerer, Solver"
+    imageUrl: "img/portrait_round.png" # optional
+    imageTitle: "Daniel Colon" # optional
+    imageWidth: 250 # custom size
+    imageHeight: 250 # custom size
+    buttons:
+    - name: About me
+      url: "/about"
+    - name: Articles
+      url: articles
+    #- name: Gitlab
+    #  url: "https://gitlab.com/dcolon"
+
+menu:
+  main:
+  - identifier: categories
+    name: categories
+    url: /categories/
+    weight: 10
+  - identifier: tags
+    name: tags
+    url: /tags/
+    weight: 20
