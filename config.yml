@@ -7,7 +7,7 @@ params:
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title
-    subtitle: "Developer, Tinkerer, Solver"
+    subtitle: "Engineer, Architect, Developer"
     imageUrl: "img/portrait_round.png" # optional
     imageTitle: "Daniel Colon" # optional
     imageWidth: 250 # custom size
@@ -22,11 +22,14 @@ params:
 
 menu:
   main:
+  - name: Articles
+    url: /articles/
+    weight: 10
   - identifier: categories
     name: categories
     url: /categories/
-    weight: 10
+    weight: 20
   - identifier: tags
     name: tags
     url: /tags/
-    weight: 20
+    weight: 30

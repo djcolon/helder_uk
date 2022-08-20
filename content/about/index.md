@@ -39,9 +39,9 @@ mechanical engineering. In the end my life took a turn and I never worked as a
 mechanical engineer, but engineering is engineering, and the overlap between the
 fields is substantial.
 
-In university I started using Matlab extensively, and after a course in
-discrete simulation using Delphi I started working part-time as a software
-developer at [Evry](https://www.evry.nl/) in 2009, a provider of software for
+In university I started using Matlab extensively. Then, in 2009 after a course
+in discrete simulation using Delphi I started working part-time as a software
+developer at [Evry](https://www.evry.nl/), a provider of software for
 healthcare professionals. Under the supervision of the Lead Developer there I
 formalised my skills in a business environment. Thoughout the years I designed
 and implemented various sub-sections of the software, as well as a number of
@@ -51,6 +51,30 @@ In 2013 I was diagnosed with cancer. This changed the course of my life and was
 a large contributor to who I am today. It forced me to quit mechanical
 engineering a few months shy of finishing my bachelor's to fight for my life
 and - after that - start on the long road to recovery. I talk about this journey
-on a website I created called
-[Gevecht over leven](https://gevechtoverleven.nl/en/).
+on a website I created: 
+[Gevecht over leven](https://gevechtoverleven.nl/en/). I'm very comfortable
+talking about this chapter of my life, so don't hesitate to ask me about it.
 
+Still recovering from treatment but in need of a new challenge I joined a
+start-up called [EVSmart](https://evsmart.nl/) as one of the co-founders.
+I was responsible for all software past the firmware level as well as the
+systems this software ran on. I designed and developed a group of applications
+running on the charge-points and back-office infrastructure. This system was
+responsible for everything from tracking usage, monitoring hardware and
+troubleshooting to billing and maintenance tracking. After three years, and
+having learned more than I ever have before in such a short period of time, I
+realised the lack of work-life balance that came wiht being part of a small
+start-up was not sustainable.
+
+In 2018 I moved from the Netherlands to the United Kingdom, and joined
+[Cirencester Friendly Society](https://www.cirencester-friendly.co.uk/) as a
+web developer (no I was not responsible for that website). My responsibilities
+within Cirencester Friendly quickly grew as I successfully took on various
+projects, and I am currently the development lead working within the rapidly
+expanding technology department on bringing the society into the future.
+
+# Personal
+
+I live in the Cotswolds together with my fiancé Heather and our Rabbit Wilfred.
+I enjoy tinkering with software and electronics, general DIY, wood- and
+metalworking and staying active.
