@@ -22,7 +22,7 @@ params:
 
 menu:
   main:
-  - name: Articles
+  - name: articles
     url: /articles/
     weight: 10
   - identifier: categories

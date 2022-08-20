@@ -5,7 +5,11 @@ draft: true
 
 ---
 
-{{< figure src="/img/portrait_round.png" alt="Daniel Colon" class="align-left">}}
+{{<
+	figure src="/img/portrait_round.png"
+	alt="Daniel Colon"
+	class="align-left no-top-margin no-bottom-margin"
+>}}
 
 I am a T-shaped engineer with a life-long passion for the creation of elegant
 solutions to challenging problems. I am a skilled self-learner, constantly
@@ -26,7 +30,7 @@ attractive to me. With computers being accessible, a lot of this attraction was
 channeled into the digital realm.
 
 The first program I wrote was with the help of a magazine when I was quite
-little. The simple QBasic program would ask you to enter your name. When I
+young. The simple QBasic program would ask you to enter your name. When I
 entered my name the computer told me I was great, but my younger brother would
 get insulted.
 
@@ -75,6 +79,6 @@ expanding technology department on bringing the society into the future.
 
 # Personal
 
-I live in the Cotswolds together with my fiancé Heather and our Rabbit Wilfred.
+I live in the Cotswolds together with my fiancé Heather and our rabbit Wilfred.
 I enjoy tinkering with software and electronics, general DIY, wood- and
 metalworking and staying active.
