@@ -4,6 +4,8 @@ title: DCol
 theme: "PaperMod"
 
 params:
+  ShowReadingTime: True
+  ShowShareButtons: true
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title

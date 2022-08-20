@@ -24,10 +24,10 @@ this gives me an opportunity to	drive positive change.
 
 # My story
 
-Ever since I was little, I liked making things. Whether it was with legos or
+Ever since I was little, I liked making things. Whether it was with Lego or
 QBasic, it was the act of manifesting my ideas into reality that has always been
 attractive to me. With computers being accessible, a lot of this attraction was
-channeled into the digital realm.
+channelled into the digital realm.
 
 The first program I wrote was with the help of a magazine when I was quite
 young. The simple QBasic program would ask you to enter your name. When I
@@ -35,10 +35,10 @@ entered my name the computer told me I was great, but my younger brother would
 get insulted.
 
 As I grew up I played with many different things. I built simple websites with
-html/css and eventually php and Javascript. I built tools and little games for
+HTML/CSS and eventually PHP and JavaScript. I built tools and little games for
 my graphing calculator and modded Morrowind and the Half-Life games.
 
-After highschool I went off to the Delft University of Technology to study
+After high-school I went off to the Delft University of Technology to study
 mechanical engineering. In the end my life took a turn and I never worked as a
 mechanical engineer, but engineering is engineering, and the overlap between the
 fields is substantial.
@@ -47,7 +47,7 @@ In university I started using Matlab extensively. Then, in 2009 after a course
 in discrete simulation using Delphi I started working part-time as a software
 developer at [Evry](https://www.evry.nl/), a provider of software for
 healthcare professionals. Under the supervision of the Lead Developer there I
-formalised my skills in a business environment. Thoughout the years I designed
+formalised my skills in a business environment. Throughout the years I designed
 and implemented various sub-sections of the software, as well as a number of
 in-house web-based tools.
 
@@ -67,7 +67,7 @@ running on the charge-points and back-office infrastructure. This system was
 responsible for everything from tracking usage, monitoring hardware and
 troubleshooting to billing and maintenance tracking. After three years, and
 having learned more than I ever have before in such a short period of time, I
-realised the lack of work-life balance that came wiht being part of a small
+realised the lack of work-life balance that came with being part of a small
 start-up was not sustainable.
 
 In 2018 I moved from the Netherlands to the United Kingdom, and joined
