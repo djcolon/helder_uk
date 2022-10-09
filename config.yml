@@ -1,4 +1,5 @@
 baseURL: https://dcol.eu/
+canonifyURLs: true
 languageCode: en-us
 title: DCol
 theme: "PaperMod"
