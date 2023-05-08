@@ -2,7 +2,7 @@
 title: EC2 Auto Scheduling
 summary: Saving on cloud cost by scheduling lower environments.
 date: 2022-08-20T12:22:17+01:00
-draft: true
+draft: false
 tags:
 - aws
 - ec2
@@ -37,16 +37,18 @@ treatment.
 ### Simple grouped scheduling
 
 A simple solution; and the first iteration of scheduling we jumped to; is to run
-a lambda script in the morning and again in the evening to start/stop all
+a lambda script in the morning and again in the evening to start and stop all
 instances used by test environments. This may not have an impact on storage
 cost, but reduces instance cost by nearly 60%.
 
-We grouped machines depending on when they needed to start/stop, and ran the
-lambda's targeted at tags set on the instances that defined them as being
-scheduled and which group they were in. This approach worked well, but was not
-very flexible. New groups had to be created every time we needed a slightly
-different start and stop time, so some improvement was warranted. This system
-was also unable to deal with different days of the week,
+> As is often the case with small Friday-afternoon projects, this one turned
+> out to be quite useful.
+
+We grouped machines depending on when they needed to start and stop, and ran the
+lambda's targeted at tags set on the instances. This approach worked well, but
+was not very flexible. New groups had to be created every time we needed a
+slightly different start and stop time, so some improvement was warranted.
+This system was also unable to deal with different days of the week.
 
 ### Simple individual scheduling
 
@@ -57,14 +59,14 @@ to deal with these tags, and set to run every minute. The function simply
 determined whether the machine was "in window" from the assigned tags. If so it
 made sure it was running, and if not it would stop the machine.
 
-We now had the flexibility to schedule instances quite flexibly, but there were
+We now had the flexibility to schedule instances flexibly, but there were
 still two shortcomings to the approach.
 
 ### Maintenance windows
 
 Machines often need to be powered on at set times, often during the night, to
 carry out important functions. Patches are applied and batches are run. We
-needed to account for that. The concept of maintenance windows was introduced.
+needed to account for that.
 We introduced the capability to apply maintenance windows; consisting of a
 start- and stop-time and an optional days array; to both individual instances
 and globally across al instances. An array in the script contains the global
@@ -98,13 +100,20 @@ The interface uses the AWS API to set a start, stop and self-serve tag on the
 machine that the scheduling lambda picks up on. With the self-serve tag missing
 the script treats the instance as a non-self-serve scheduled instance.
 
-### Conclusion
-
 After some evolution the scheduling system, whilst simple, has become a very
 effective tool in improving cost-efficiency of our part-time instances. It is
 easy to use, yet flexible enough to do what we need it to do. I'm sure the
 system will evolve further as requirements come to light, but it is quite
 effective in its current incarnation.
+
+This was one of those projects that wasn't designed to an extensive set of
+requirements from the get-go. It was slowly built up over time in those hours
+on the Friday afternoon that just don't lend themselves to starting on a bigger
+piece of work. Those hours invested experimenting with the little things you've
+been meaning to tackle but never have the time to. As is often the case with
+small Friday-afternoon projects, this one turned out to be quite useful.
+
+### Run it yourself
 
 Whilst I can't share the user-interface allowing the scheduling, we've made the
 smartEc2Schedule Lambda open-source under the MIT license.

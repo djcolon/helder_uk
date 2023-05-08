@@ -1,7 +1,8 @@
 ---
 title: "About me"
+summary: A summary of the life of Daniel Colon.
 date: 2022-08-20T12:15:18+01:00
-draft: true
+draft: false
 
 ---
 
@@ -38,10 +39,11 @@ As I grew up I played with many different things. I built simple websites with
 HTML/CSS and eventually PHP and JavaScript. I built tools and little games for
 my graphing calculator and modded Morrowind and the Half-Life games.
 
-After high-school I went off to the Delft University of Technology to study
+After high-school I went off to the
+[Delft University of Technology](https://www.tudelft.nl/en/) to study
 mechanical engineering. In the end my life took a turn and I never worked as a
-mechanical engineer, but engineering is engineering, and the overlap between the
-fields is substantial.
+mechanical engineer, but engineering is engineering, and I still use the skills
+gained in my formal education every day.
 
 In university I started using Matlab extensively. Then, in 2009 after a course
 in discrete simulation using Delphi I started working part-time as a software
@@ -56,11 +58,10 @@ a large contributor to who I am today. It forced me to quit mechanical
 engineering a few months shy of finishing my bachelor's to fight for my life
 and - after that - start on the long road to recovery. I talk about this journey
 on a website I created: 
-[Gevecht over leven](https://gevechtoverleven.nl/en/). I'm very comfortable
-talking about this chapter of my life, so don't hesitate to ask me about it.
+[Gevecht over leven](https://gevechtoverleven.nl/en/).
 
 Still recovering from treatment but in need of a new challenge I joined a
-start-up called [EVSmart](https://evsmart.nl/) as one of the co-founders.
+start-up called [EVSmart](https://evsmart.nl/).
 I was responsible for all software past the firmware level as well as the
 systems this software ran on. I designed and developed a group of applications
 running on the charge-points and back-office infrastructure. This system was
@@ -68,14 +69,14 @@ responsible for everything from tracking usage, monitoring hardware and
 troubleshooting to billing and maintenance tracking. After three years, and
 having learned more than I ever have before in such a short period of time, I
 realised the lack of work-life balance that came with being part of a small
-start-up was not sustainable.
+start-up was not what I wanted from life.
 
 In 2018 I moved from the Netherlands to the United Kingdom, and joined
 [Cirencester Friendly Society](https://www.cirencester-friendly.co.uk/) as a
-web developer (no I was not responsible for that website). My responsibilities
-within Cirencester Friendly quickly grew as I successfully took on various
-projects, and I am currently the development lead working within the rapidly
-expanding technology department on bringing the society into the future.
+developer. My responsibilities within Cirencester Friendly quickly grew as I
+successfully took on various projects, and I am currently the lead developer
+working within the rapidly expanding technology department on bringing the
+Cirencester Friendly Society into the future.
 
 # Personal
 
