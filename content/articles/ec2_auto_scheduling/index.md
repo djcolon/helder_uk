@@ -2,7 +2,7 @@
 title: EC2 Auto Scheduling
 summary: Saving on cloud cost by scheduling lower environments.
 date: 2022-08-20T12:22:17+01:00
-draft: false
+draft: False
 tags:
 - aws
 - ec2
@@ -19,7 +19,7 @@ categories:
 	alt="A drawing of a stopwatch in front of money and credit-cards."
 	class="align-left no-top-margin"
 	attr="Image by photoroyalty"
-	attrlink="https://www.freepik.com/vectors/coloured-background"
+	attrlink="https://www.freepik.com/free-vector/money-background-design_1047362.htm"
 >}}
 
 As your AWS estate grows, so will your bill. The flexibility of the cloud makes
