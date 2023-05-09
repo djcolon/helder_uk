@@ -2,7 +2,7 @@
 title: Woud
 summary: Cellular automata forest fire
 date: 2023-05-09T20:37:00+01:00
-draft: True
+draft: False
 tags:
 - cellular automata
 - SDL2
