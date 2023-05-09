@@ -6,7 +6,12 @@ theme: "PaperMod"
 
 params:
   ShowReadingTime: True
-  ShowShareButtons: true
+  ShowShareButtons: False
+  socialIcons:
+    - name: "linkedin"
+      url: "https://www.linkedin.com/in/dani%C3%ABl-colon-5b632941/"
+    - name: "gitlab"
+      url: "https://gitlab.com/dcolon"
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title

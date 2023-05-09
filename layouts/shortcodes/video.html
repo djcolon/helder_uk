@@ -1,0 +1,15 @@
+<figure class="figure">
+	<video
+		class="embed-responsive embed-responsive-1by1"
+		poster="{{ .Get "poster" }}"
+		alt="{{ .Get "alt" }}"
+		controls
+	>
+		<source src="{{ .Get "webm_src" }}" type="video/webm">
+		<source src="{{ .Get "mp4_src" }}" type="video/mp4">
+		Your browser does not support video.
+	</video>
+	<figcaption class="figure-caption">
+		{{ .Get "caption" }}
+	</figcaption>
+</figure>
