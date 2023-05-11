@@ -1,5 +1,5 @@
 baseURL: https://dcol.eu/
-canonifyURLs: true
+canonifyURLs: false
 languageCode: en-us
 title: DCol
 theme: "PaperMod"
@@ -7,11 +7,14 @@ theme: "PaperMod"
 params:
   ShowReadingTime: True
   ShowShareButtons: False
+  ShowCodeCopyButtons: true
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/dani%C3%ABl-colon-5b632941/"
     - name: "gitlab"
       url: "https://gitlab.com/dcolon"
+    - name: "discord"
+      url: "https://discord.com/users/HelmusMkII%20%F0%9F%87%AC%F0%9F%87%A7#0571"
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title
