@@ -37,7 +37,7 @@ Callgrind is a profiler, what it does is analyse calls within the compiled
 program. All programs consist of a number of functions that get called from
 other functions. The execution of all these functions in a particular way is
 what takes up the processing time used by the program. This forms a pyramid of
-functions being called from other function with your `main()` at the top.
+functions being called from other functions with your `main()` at the top.
 
 `main()` will contain 100% of the compute power used by your application, with
 subsequent function calls making up parts of that. If we had a simple
@@ -51,7 +51,7 @@ main() - 100%
 └─ bar() - 90%
 ```
 
-To quote [the manual](https://valgrind.org/docs/manual/cl-manual.html)
+To quote [the manual](https://valgrind.org/docs/manual/cl-manual.html):
 
 > ... Callgrind extends this functionality by propagating costs across function
 > call boundaries. If function foo calls bar, the costs from bar are added into
@@ -144,7 +144,8 @@ SDL runtime version 2.24.1
 ```
 
 You should also see a file was created called `callgrind.out.####`. This file
-contains the results of our analysis.
+contains the results of our analysis. You can view my trace
+[here](callgrind.out). Or download it by right clicking and choosing *save as*.
 
 ## Analysing the output
 
@@ -153,3 +154,21 @@ To analyse the output of Callgrind we'll use an application called
 the results of our run. Once it's installed open up KCachegrind and open the
 `callgrind.out.####` file generated in the previous section. It should look
 something like this:
+
+{{<
+	figure src="kcachegrind.png"
+	alt="KCachegrind for the output of Woud."
+	class="align-left no-top-margin"
+	attr=""
+	attrlink=""
+>}}
+
+Where the callgraph is a very interesting tab to explore:
+
+{{<
+	figure src="callgraph.png"
+	alt="The callgraph for our run of Woud."
+	class="align-left no-top-margin"
+	attr=""
+	attrlink=""
+>}}
