@@ -2,20 +2,21 @@
 title: Optimising software using Callgrind
 summary: Learn how to use Callgrind to find bottlenecks in your software
 date: 2023-05-11T19:25:00+01:00
-draft: True
+draft: False
 tags:
+- software development
 - optimisation
 - debugging
 - tools
 categories:
-- software
+- software development
 ---
 
 {{<
 	figure src="valgrind_logo.png"
 	alt="The valgrind logo."
 	class="align-left no-top-margin"
-	attr="Valgrind™ Developers"
+	attr="Copyright: Valgrind™ Developers"
 	attrlink="https://valgrind.org/"
 >}}
 
@@ -24,12 +25,15 @@ and age, optimisation of software has become less of a concern to developers
 than it once was. Whilst 4KB of RAM was enough for the Apollo Guidance
 Computer to facilitate a mission to the moon, opening a modern web-app will see
 a single chrome tab bloat to a gigabyte. When everyone has a large amount of
-resource available, concerns such a maintainability and development time take
+resource available, concerns such as maintainability and development time take
 precedence over optimisation. But when you're writing software, or a subsection
 of a piece of software, that needs to be performant. Sometimes you will need to
 go to greater lengths to optimise your code. In this article we'll explore how
 to use Callgrind, a sub-component of the [Valgrind](https://valgrind.org/)
 framework to locate where to best direct our attentions.
+
+*Other than profiling, there is much more the Valgrind toolkit can do. Have a
+look at [their website](https://valgrind.org/) to see what other gems it holds.*
 
 ## What does Callgrind do?
 
@@ -42,7 +46,7 @@ functions being called from other functions with your `main()` at the top.
 `main()` will contain 100% of the compute power used by your application, with
 subsequent function calls making up parts of that. If we had a simple
 application that had a loop in the main function that called function `foo()`
-1 time, function `bar()` 9 times, and then quite the application, the so called
+1 time, function `bar()` 9 times, and then quit the application, the so called
 call graph would look something like this:
 
 ```
@@ -59,20 +63,27 @@ To quote [the manual](https://valgrind.org/docs/manual/cl-manual.html):
 > of so called inclusive costs, that is, where the cost of each function
 > includes the costs of all functions it called, directly or indirectly.
 
-Where "cost" means that the application spends a lot of processing time
-executing that function.
+Where "cost" is the amount of processing time spent executing that function.
 
 By analysing this callgraph, we can find good spots to direct our attentions
 when optimising the program. If we can optimise a function that has a high cost
 we can optimise the result of our work - as opposed to wasting time optimising
 a function that contributes very little to the overall cost of the program.
 
+We'll have a look at an example to make it clearer what this means - and how it
+can benefit you.
+
 ## Running Callgrind
 
 To demonstrate the use of Callgrind, we'll analyse a commit of my project
-[Woud]({{< ref "woud">}}) created as a demonstration. I'll be using a Linux
-distribution (in this case arch) in this example, and will assume proficiency in
-the use thereof.
+Woud created as a demonstration. It'll be useful to have read
+[the article I wrote on it]({{< ref "woud">}}) to follow along with the example.
+You can run the example on a Linux distribution of your choice, the use of Linux
+and the surrounding tools falls outside of the scope of this article.
+
+*Do note that there are more profilers than callgrind, and if you search the web
+you're likely to find one that suits your language and OS of choice - and the
+techniques discussed in this article will carry over.*
 
 You'll need to be set up with git, some sort of text editor, and c++ development
 tools (make, g++), dependencies for Woud (libSDL2, libSDL2_ttf), and of course
@@ -163,7 +174,13 @@ something like this:
 	attrlink=""
 >}}
 
-Where the callgraph is a very interesting tab to explore:
+What you're looking at is a list of all the function calls made inside your
+program, organised by (cumulative) cost. As you can see here, 99.99% of our CPU
+time is spent in `main()`, 68.47% in `spreadFire()`, and so forth.
+
+The callgraph tab (bottom right) is a very interesting tab to explore. It shows
+what functions call which others functions in a tree view, and gives us a great
+visual representation of where most cost in the program sits:
 
 {{<
 	figure src="callgraph.png"
@@ -172,3 +189,72 @@ Where the callgraph is a very interesting tab to explore:
 	attr=""
 	attrlink=""
 >}}
+
+In our callgraph it becomes clear that the program spends most of its time in
+the SDLWindow::spreadFire function:
+
+{{<
+	figure src="spreadFire.png"
+	alt="The callgraph for spreadfire."
+	class="align-left no-top-margin"
+	attr=""
+	attrlink=""
+>}}
+
+If we had to choose a place to start optimising our program, this would be an
+excellent place:
+
+```cpp
+void SDLWindow::spreadFire(Tree* ATree) {
+	// Generate a rect to spread in
+	Rect ADangerZone = {
+		ATree->position.x - SPREAD_RADIUS,
+		ATree->position.x + SPREAD_RADIUS,
+		ATree->position.y - SPREAD_RADIUS,
+		ATree->position.y + SPREAD_RADIUS
+	};
+
+	// Get trees that might catch fire
+	std::list<Tree*> ATreesInDangerZone;
+	scene->retrieve(&ATreesInDangerZone, ADangerZone);
+	// Do a collision check on all of them
+	for(std::list<Tree*>::iterator ATarget = ATreesInDangerZone.begin(); ATarget != ATreesInDangerZone.end(); ATarget++) {
+		if(ATree->collides((*ATarget)->position, SPREAD_RADIUS)) {
+			// It's caught fire!
+			(*ATarget)->state = Tree::STATE_BURNING;
+		}
+	}
+}
+```
+
+We can see that 68% of the program's cost is spent in this function. A lot of
+our cost is spend on retrieving potential hits from the QuadTree, but there
+isn't all that much that can be done about that... The same goes for the many
+calls to `pow()` when computing the distance between trees.
+
+It does look like we're spending an inordinate amount of time allocating memory
+for a list to Tree*, moving pointers around and then free-ing everything after.
+We could look into moving our collision check into a separate function, and
+calling it directly from a QuadTree::retrieve type function that takes a
+function to run on potential collisions as an argument.
+
+As an alternative approach we could look at a higher level and think of ways we
+could decrease the number of calls to `spreadFire()`. We currently run this for
+any tree that is on fire, for every iteration until it has burnt up. A simple
+way to vastly increase the running speed of the program is to be more
+conservative about running this function. Could we run it on every other tree
+per iteration and interleave them? Do we just run it for the first cycle the
+tree is on fire and then stop? There are a number of options we could pursue.
+Now that we've found this function to be expensive, it is a prime target to use
+less.
+
+What is so useful about a tool like CacheGrind is that it allows us to find the
+bottlenecks in a program that have the most impact on performance. It gives us
+a quantified view of the places in the code that occupy our CPU. That way we
+spend our time more effectively, rather than chasing performance in places that
+don't actually impact the bottom line.
+
+In a world where CPU cycles are cheap, and developers are expensive, squeezing
+the last bit of performance out of your code is often an afterthought. But when
+you do need that edge, a profiler is an extremely useful tool to have under your
+belt.
