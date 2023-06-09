@@ -26,18 +26,19 @@ than it once was. Whilst 4KB of RAM was enough for the Apollo Guidance
 Computer to facilitate a mission to the moon, opening a modern web-app will see
 a single chrome tab bloat to a gigabyte. When everyone has a large amount of
 resource available, concerns such as maintainability and development time take
-precedence over optimisation. But when you're writing software, or a subsection
-of a piece of software, that needs to be performant. Sometimes you will need to
-go to greater lengths to optimise your code. In this article we'll explore how
-to use Callgrind, a sub-component of the [Valgrind](https://valgrind.org/)
-framework to locate where to best direct our attentions.
+precedence over optimisation. However, when you're writing software that needs
+to be performant, sometimes you will need to go to greater lengths to optimise
+your code. In some situations, optimising the use of resource use can yield
+significant cost savings. In this article we'll explore how to use Callgrind,
+a sub-component of the [Valgrind](https://valgrind.org/)
+framework, to locate where to best direct our attention.
 
 *Other than profiling, there is much more the Valgrind toolkit can do. Have a
 look at [their website](https://valgrind.org/) to see what other gems it holds.*
 
 ## What does Callgrind do?
 
-Callgrind is a profiler, what it does is analyse calls within the compiled
+Callgrind is a profiler; what it does is analyse calls within the compiled
 program. All programs consist of a number of functions that get called from
 other functions. The execution of all these functions in a particular way is
 what takes up the processing time used by the program. This forms a pyramid of
@@ -58,15 +59,16 @@ main() - 100%
 To quote [the manual](https://valgrind.org/docs/manual/cl-manual.html):
 
 > ... Callgrind extends this functionality by propagating costs across function
-> call boundaries. If function foo calls bar, the costs from bar are added into
-> foo's costs. When applied to the program as a whole, this builds up a picture
-> of so called inclusive costs, that is, where the cost of each function
-> includes the costs of all functions it called, directly or indirectly.
+> call boundaries. If `foo()` calls `bar()`, the costs from `bar()` are added
+> into `foo()`'s costs. When applied to the program as a whole, this builds up
+> a picture of so called inclusive costs, that is, where the cost of each
+> function includes the costs of all functions it called, directly or
+> indirectly.
 
 Where "cost" is the amount of processing time spent executing that function.
 
 By analysing this callgraph, we can find good spots to direct our attentions
-when optimising the program. If we can optimise a function that has a high cost
+when optimising the program. If we can optimise a function that has a high cost,
 we can optimise the result of our work - as opposed to wasting time optimising
 a function that contributes very little to the overall cost of the program.
 
@@ -75,8 +77,8 @@ can benefit you.
 
 ## Running Callgrind
 
-To demonstrate the use of Callgrind, we'll analyse a commit of my project
-Woud created as a demonstration. It'll be useful to have read
+To demonstrate the use of Callgrind, we'll analyse a commit of my project,
+Woud, created as a demonstration. It'll be useful to have read
 [the article I wrote on it]({{< ref "woud">}}) to follow along with the example.
 You can run the example on a Linux distribution of your choice, the use of Linux
 and the surrounding tools falls outside of the scope of this article.
@@ -127,7 +129,7 @@ valgrind --tool=callgrind build/woud
 ```
 
 This will launch Woud wrapped in Callgrind. Because of the overhead of
-Callgrind the application will run considerably more slowly. Leave the
+Callgrind, the application will run considerably more slowly. Leave the
 application to run for a good while (let a decently sized fire rage through a
 forest) before you quit the application (in Woud, use ctrl+q).
 The output over the process should look something like this:
@@ -228,7 +230,7 @@ void SDLWindow::spreadFire(Tree* ATree) {
 ```
 
 We can see that 68% of the program's cost is spent in this function. A lot of
-our cost is spend on retrieving potential hits from the QuadTree, but there
+our cost is spent on retrieving potential hits from the QuadTree, but there
 isn't all that much that can be done about that... The same goes for the many
 calls to `pow()` when computing the distance between trees.
 
@@ -244,11 +246,11 @@ any tree that is on fire, for every iteration until it has burnt up. A simple
 way to vastly increase the running speed of the program is to be more
 conservative about running this function. Could we run it on every other tree
 per iteration and interleave them? Do we just run it for the first cycle the
-tree is on fire and then stop? There are a number of options we could pursue.
+tree is on fire, and then stop? There are a number of options we could pursue.
 Now that we've found this function to be expensive, it is a prime target to use
 less.
 
-What is so useful about a tool like CacheGrind is that it allows us to find the
+What is so useful about a tool like CallGrind is that it allows us to find the
 bottlenecks in a program that have the most impact on performance. It gives us
 a quantified view of the places in the code that occupy our CPU. That way we
 spend our time more effectively, rather than chasing performance in places that
@@ -257,4 +259,5 @@ don't actually impact the bottom line.
 In a world where CPU cycles are cheap, and developers are expensive, squeezing
 the last bit of performance out of your code is often an afterthought. But when
 you do need that edge, a profiler is an extremely useful tool to have under your
-belt.
+belt. Finally, when your application is running at scale, a small decrease
+in compute use can translate to significant cost savings.
