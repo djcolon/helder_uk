@@ -14,7 +14,7 @@ params:
     - name: "gitlab"
       url: "https://gitlab.com/dcolon"
     - name: "discord"
-      url: "https://discord.com/users/HelmusMkII%20%F0%9F%87%AC%F0%9F%87%A7#0571"
+      url: "https://discord.com/users/helmusmkii"
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title
