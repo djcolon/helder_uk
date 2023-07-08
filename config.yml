@@ -1,7 +1,7 @@
-baseURL: https://dcol.eu/
+baseURL: https://helder.uk/
 canonifyURLs: false
-languageCode: en-us
-title: DCol
+languageCode: en-uk
+title: Helder
 theme: "PaperMod"
 
 params:
@@ -13,6 +13,8 @@ params:
       url: "https://www.linkedin.com/in/dani%C3%ABl-colon-5b632941/"
     - name: "gitlab"
       url: "https://gitlab.com/dcolon"
+    - name: "github"
+      url: "https://github.com/djcolon"
     - name: "discord"
       url: "https://discord.com/users/helmusmkii"
   profileMode:
