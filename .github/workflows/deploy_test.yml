@@ -34,7 +34,7 @@ jobs:
             submodules: 'true'
 
         - name: Build
-          run: cd app/ && hugo
+          run: hugo
 
         - name: Upload files to S3
           run: aws s3 sync public/ s3://${{ secrets.DCOL_WORKLOAD_HELDER_TEST_DEPLOY_BUCKET }}/ --exact-timestamps --delete
