@@ -80,6 +80,6 @@ Cirencester Friendly Society into the future.
 
 # Personal
 
-I live in the Cotswolds together with my fiancé Heather and our rabbit Wilfred.
+I live in the Cotswolds together with my wife Heather and our rabbit Wilfred.
 I enjoy tinkering with software and electronics, general DIY, wood- and
 metalworking and staying active.
