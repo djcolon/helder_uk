@@ -11,9 +11,9 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.DCOL_WORKLOAD_HELDER_PRODUCTION_DEPLOY_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.DCOL_WORKLOAD_HELDER_PRODUCTION_DEPLOY_KEY_SECRET }}
-      AWS_DEFAULT_REGION: ${{ env.DCOL_WORKLOAD_HELDER_PRODUCTION_DEPLOY_REGION }}
+      AWS_DEFAULT_REGION: ${{ vars.DCOL_WORKLOAD_HELDER_PRODUCTION_DEPLOY_REGION }}
       BUCKET_NAME: ${{ secrets.DCOL_WORKLOAD_HELDER_PRODUCTION_DEPLOY_BUCKET }}
-      HUGO_BASEURL: https://test.helder.uk
+      HUGO_BASEURL: https://helder.uk
     steps:
         - name: Install hugo
           run: sudo apt install hugo
