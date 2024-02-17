@@ -11,12 +11,12 @@ params:
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/dani%C3%ABl-colon-5b632941/"
-    - name: "gitlab"
-      url: "https://gitlab.com/dcolon"
+    #- name: "gitlab"
+    #  url: "https://gitlab.com/dcolon"
     - name: "github"
       url: "https://github.com/djcolon"
-    - name: "discord"
-      url: "https://discord.com/users/helmusmkii"
+    #- name: "discord"
+    #  url: "https://discord.com/users/helmusmkii"
   profileMode:
     enabled: true
     title: "Daniel Colon" # optional default will be site title
