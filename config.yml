@@ -5,6 +5,7 @@ title: Helder
 theme: "PaperMod"
 
 params:
+  description: Daniel Colon's personal blog, where he talks about technology, development, and anything that strikes his fancy.
   ShowReadingTime: True
   ShowShareButtons: False
   ShowCodeCopyButtons: true
