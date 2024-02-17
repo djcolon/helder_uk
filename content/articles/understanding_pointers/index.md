@@ -1,8 +1,8 @@
 ---
 title: Understanding Pointers
+mermaid: True
 summary: Understand what pointers are and how they work.
 date: 2024-02-17T09:30:00+01:00
-mermaid: True
 tags:
 - software development
 categories:
@@ -17,13 +17,13 @@ categories:
 
 Pointers are a concept that, when first encountered, may be hard to wrap your
 head around. As is the case with many concepts in programming, it is useful
-to understand the underlying mechanisms. Looking under the hood is not only a
+to understand the underlying mechanisms. Looking under the hood a
 useful way to learn how to use something, it'll also help to reason about
 behaviour that may not be immediately obvious.
 
 This article will explore what pointers are, how to use them, and what is going
 on beneath the surface. If this is your first time encountering things like
-`&variable`, `parameter *type`, or even `parameter **type` this article will
+`&variable`, `type* varname`, or even `type** varname` this article will
 help you make sense of that.
 
 ## Memory
@@ -38,7 +38,7 @@ the computer memory, there are 8 memory cells set to a 1 or 0 depending on the
 value of the integer. Something like: `0011 1100` which is the integer number
 60.
 
-As multiple programs run together on the machine, the computer needs to have
+The computer needs to have
 some way of tracking which pieces of memory represent what. To be able to do
 that, each piece of memory has its own address:
 
@@ -52,16 +52,17 @@ that, each piece of memory has its own address:
 
 In this example, we can see that our 8 bit integer is stored in the block of
 memory with address `0x0001` (note the `0x` at the start indicates the address
-is formatted in [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal)).
+is formatted in [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal), as
+starting with `0b` would mean binary.).
 
 So what happens when we have a piece of data that is too large to fit into those
-8 bits of computer memory like a 32 bit integer
+8 bits of computer memory? For example, a 32 bit integer
 `0010 0000 0101 0100 0010 1010 0000 0100` representing the number 542386692?
-It is simply put into multiple memory cells. The computer remembers the address
-of the first of these cells, and knows from the type (in this case, a
-**32** bit integer) how many cells it needs to read to get all the data. Let's
-see what it looks like when we assign our 32 bit integer to a piece of memory
-following our 8 bit integer:
+It is simply put into multiple blocks of memory cells. The computer remembers
+the address of the first of these blocks, and knows from the type (in this case,
+a **32** bit integer) how many blocks it needs to read to get all the data.
+Let's see what it looks like when we assign our 32 bit integer to a piece of
+memory following our 8 bit integer:
 
 | Address | Value         |
 | ------- | ------------- |
@@ -73,16 +74,36 @@ following our 8 bit integer:
 | ...     |   ...         |
 | 0xFFFF  |   0000 0000   |
 
-As we can see, the addresses `0x0002` up `0x0005` are now used to store our
+As we can see, the addresses `0x0002` up to `0x0005` are now used to store our
 32 bit integer number, using up 4 of the 8 bit memory cells.
+
+We only use `0x0002` to refer to the variable, the computer can figure out it
+needs to read all four blocks from the type (after all, it needs to read 4 sets
+of 8 bits to complete the 32 bit type.)
 
 ## Pointers
 
 So, back to pointers. We've really done the legwork by now. A pointer is just a
-memory address. We use the `&` or `reference` operator (we can read this as
+memory address.
+
+### Reference
+
+We use the `&` or `reference` operator (we can read this as
 "address of") to get the memory address of whatever variable we put it in front
-of. The `*`, `de-reference` (we can read this as "value pointed at by") to get
+of.
+
+For example: we can read `&someVariable` as "Address of someVariable".
+
+### De-reference
+
+
+The `*`, `de-reference` (we can read this as "value pointed at by") to get
 the content of the memory an address (or pointer) points at.
+
+For example: we can read `*somePointer` as "The contents of the memory at the
+address somePointer points to."
+
+## Examples
 
 Let's have a look at an example in C++:
 ```cpp
@@ -99,9 +120,9 @@ int main() {
 ```
 [Have a play with it here!](https://cpp.sh/?source=%2F%2F+Example+program%0A%23include+%3Ciostream%3E%0A%23include+%3Cstring%3E%0A%0Aint+main()%0A%7B%0A++std%3A%3Astring+name%3B%0A++std%3A%3Acout+%3C%3C+%22What+is+your+name%3F+%22%3B%0A++getline+(std%3A%3Acin%2C+name)%3B%0A++std%3A%3Acout+%3C%3C+%22Hello%2C+%22+%3C%3C+name+%3C%3C+%22!%5Cn%22%3B%0A%7D)
 
-This piece of code prints out: `0x505278`, which is the memory address the value
-of our number is stored. Now try and see what happens if you change that output
-line:
+This piece of code prints out: `0x505278`, which is the memory address at which
+the value of our number is stored. Now try and see what happens if you change
+that output line:
 
 ```cpp
 std::cout << *&number << std::endl;
@@ -110,7 +131,7 @@ std::cout << *&number << std::endl;
 As you may have guessed, it just prints out the value of our number `542386692`.
 What we're doing is using the `&` operator to get the memory address of the
 number, and then immediately getting the value at that address with `*`.
-In plain language, `*&number` reads as "the value pointed at by the address of
+In plain language, `*&number` reads as "The value pointed at by the address of
 number".
 
 ```mermaid
@@ -136,12 +157,13 @@ To represent a pointer as a variable we use a pointer type rather than just the
 address. For example, a pointer to a 32 bit unsigned integer is declared as
 `uint32_t* <variable name>`. 
 
+> **Side-note**:
 > There is [some discussion](https://wiki.c2.com/?HolyWar) about whether to
 > write it as I did, or as `uint32_t *<variable name>`, or even as
 > `uint32_t * <variable name>`. As far as I'm concerned, it is part of the type,
-> and sits next to the type definition. You may see any of these styles, and it
-> really comes down to personal preference or any style guides. The main things
-> is to be consistent.
+> and should therefore be part of the type definition. You may see any of these
+> styles, and it really comes down to personal preference or any style guides.
+> The main thing is to be consistent.
 
 The reason we can't just pass the memory address around as a number
 is that the computer needs to know what type the pointer is pointing to. As
@@ -212,7 +234,7 @@ int main() {
     std::cout << *address_of_number << std::endl;
     // Pass it into the function.
     test(address_of_number);
-    // The print it again:
+    // Then print it again:
     std::cout << *address_of_number << std::endl;
     return 0;
 }
@@ -229,7 +251,7 @@ This time the program prints out:
 We modified the value referenced by the pointer inside the function rather than
 returning it from the function. Whilst this may be the right approach when
 you want to avoid passing around large chunks of memory, it is better to avoid
-doing this, as this causes a
+doing this. This causes a
 [side effect](https://en.wikipedia.org/wiki/Side_effect_(computer_science))
 which will make your program harder to reason about, and harder to test.
 
@@ -290,7 +312,7 @@ Whilst we didn't go into
 [pointer arithmetic](https://cplusplus.com/doc/tutorial/pointers/#arithmetics),
 or looking at arrays and how they use pointers, we will have a brief look at
 pointer (or memory) safety. This is a big topic, and I'd encourage any developer
-to [explore if further](https://en.wikipedia.org/wiki/Memory_safety). As memory
+to [explore it further](https://en.wikipedia.org/wiki/Memory_safety). As memory
 errors like buffer overflows or buffer over-reads are historically responsible
 for the bulk of vulnerabilities found in software.
 
@@ -310,7 +332,7 @@ we are storing some text data as well:
 | 0xFFFF  | 0000 0000 |
 
 In address `0x0001` I have stored some 8 bit integer. And there is some other
-user's secret password that happens ot be stored in the bit of memory next to
+user's secret password that happens to be stored in the bit of memory next to
 it. Let's simulate what could happen:
 ```cpp
 #include <iostream>
@@ -320,7 +342,7 @@ int main() {
     uint8_t number = 0b00111100;
     std::cout << (int) number << std::endl;
     uint8_t sometext[6] = {'s','e','c','r','e','t'};
-    // And then simulate a bit of 8 bytes of memory containing both:
+    // And then simulate a chunk of 8 bytes of memory containing both:
     uint8_t memory[8] = {
         number,
         sometext[0],
@@ -359,7 +381,7 @@ online converter from integer to characters we get this:
 
 Where the `<` is the character representation of out 8bit integer. And the other
 character is the `0`. In the middle we find the password of the other user that
-we just leaked by accidentally accessing the wrong bit of memory.
+we just leaked by accidentally accessing the wrong bit of memory... Not good.
 
 This example seems a bit far-fetched, but there have been many cases where bugs
 very similar to this have caused serious issues, such as the
@@ -369,16 +391,17 @@ careful manually manipulating memory, or even better: avoid it altogether.
 ## Conclusion
 
 I hope this article helped you wrap your head around how pointers work and how
-they can be used. We only looked at things from a very high level, and glossed
+they can be used. And maybe you learnt something about memory in the process.
+We only looked at things from a very high level, and glossed
 over lots of detail. If you want to dive a bit deeper, I'd recommend you google
 some of the following terms:
-- Virtual memory
-- Stack and heap
-- Pointer arithmetic
-- Strings in C
-- Pass by reference vs pass by value vs pass by pointer
+- [Virtual memory](https://www.google.com/search?q=virtual+memory)
+- [Stack and heap](https://www.google.com/search?q=stack+and+heap)
+- [Pointer arithmetic](https://www.google.com/search?q=pointer+arithmetic)
+- [Strings in C](https://www.google.com/search?q=strings+in+c)
+- [Pass by reference vs pass by value vs pass by pointer](https://www.google.com/search?q=Pass+by+reference+vs+pass+by+value+vs+pass+by+pointer)
 
 And dive a bit deeper into something that is very relevant to anyone writing
-software. Even if you work in high-level programming languages like Python, it
+software. Even if you work in high-level languages like Python or JS, it
 will still use these mechanisms under the hood - and it is good to understand
 them.

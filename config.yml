@@ -8,6 +8,8 @@ params:
   ShowReadingTime: True
   ShowShareButtons: False
   ShowCodeCopyButtons: true
+  ShowBreadCrumbs: true
+  ShowPostNavLinks: true
   socialIcons:
     - name: "linkedin"
       url: "https://www.linkedin.com/in/dani%C3%ABl-colon-5b632941/"
