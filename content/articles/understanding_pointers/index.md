@@ -2,7 +2,6 @@
 title: Understanding Pointers
 summary: Understand what pointers are and how they work.
 date: 2024-02-17T09:30:00+01:00
-draft: True
 mermaid: True
 tags:
 - software development
