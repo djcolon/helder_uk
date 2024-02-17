@@ -2,7 +2,7 @@
 
 **Daniel Colon - 20/08/2022**
 
-This is my homepage built using HUGO.
+This is my homepage built using [HUGO](https://gohugo.io/).
 [Hosted at helder.uk](https://helder.uk)
 
 ## Theme
@@ -14,6 +14,15 @@ The theme is cloned in as a submodule. When pulling the repository make sure to
 run:
 
 `git submodule update --init --recursive`
+
+## Running locally
+
+Follow HUGO's installation instructions for your platform
+[here](https://gohugo.io/installation/).
+Make sure you install hugo-extended.
+
+Then simply run `hugo server -D` (where the -D flag will include articles in
+draft.)
 
 ## Deployment
 
