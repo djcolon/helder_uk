@@ -16,7 +16,14 @@ jobs:
       HUGO_BASEURL: https://test.helder.uk
     steps:
         - name: Install hugo
-          run: sudo apt install hugo
+          run: |
+            wget https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_0.122.0_linux-amd64.deb
+            if [[ $(sha256sum hugo_0.122.0_linux-amd64.deb) == "8afdde350186f774eec8684c12d8272568efd821d23167dd49ffe021e570f710" ]]
+            then
+              sudo dpkg -i hugo_0.122.0_linux-amd64.deb
+            else
+              exit 1
+            fi
 
         - name: Install aws cli
           id: install-aws-cli
