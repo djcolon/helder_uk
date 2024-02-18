@@ -47,6 +47,9 @@ jobs:
 
         - name: Upload files to S3
           run: aws s3 sync public/ s3://${{ secrets.DCOL_WORKLOAD_HELDER_TEST_DEPLOY_BUCKET }}/ --exact-timestamps --delete
+
+        - name: Invalidate cloudfront distribution
+          run: aws cloudfront create-invalidation --distribution-id ${{ secrets.DCOL_WORKLOAD_HELDER_TEST_DISTRIBUTON_ID }} --paths "/*"
           
 
 #  create-cloudfront-invalidation:
